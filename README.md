@@ -1,3 +1,11 @@
+# ustcthss-typst
+中国科学技术大学本科生毕业论文的typst模版, 
+按照 https://www.teach.ustc.edu.cn/notice/notice-teaching/17071.html 格式要求编写。
+
+本仓库基于PKUTHSS-Typst修改得到。
+
+
+
 # PKUTHSS-Typst
 
 Typst template for dissertations in Peking University (PKU).
