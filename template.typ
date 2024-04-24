@@ -138,6 +138,7 @@
 }
 
 #let chineseoutline(title: "目录", depth: none, indent: false) = {
+  set text(size: 字号.小四, font: 字体.宋体)
   heading(title, numbering: none, outlined: false)
   locate(it => {
     let elements = query(heading.where(outlined: true).after(it), it)
@@ -338,9 +339,9 @@
   eauthor: "San Zhang",
   studentid: "23000xxxxx",
   blindid: "L2023XXXXX",
-  cthesisname: "博士研究生学位论文",
-  cheader: "北京大学博士学位论文",
-  ctitle: "北京大学学位论文 Typst 模板",
+  cthesisname: "本科毕业论文",
+  cheader: "中国科学技术大学本科毕业论文",
+  ctitle: "中国科学技术大学学位论文 Typst 模板",
   etitle: "Typst Template for Peking University Dissertations",
   school: "某个学院",
   cfirstmajor: "某个一级学科",
@@ -349,18 +350,18 @@
   direction: "某个研究方向",
   csupervisor: "李四",
   esupervisor: "Si Li",
-  date: "二零二三年六月",
+  date: "2024年5月1日",
   cabstract: [],
   ckeywords: (),
   eabstract: [],
   ekeywords: (),
   acknowledgements: [],
-  linespacing: 1em,
+  linespacing: 22pt,
   outlinedepth: 3,
   blind: false,
-  listofimage: true,
-  listoftable: true,
-  listofcode: true,
+  listofimage: false,
+  listoftable: false,
+  listofcode: false,
   alwaysstartodd: true,
   doc,
 ) = {
@@ -524,12 +525,16 @@
       equationcounter.update(())
 
       set align(center)
-      sizedheading(it, 字号.三号)
+      if it.body.text in ("Abstract", "摘要", "目录") {
+        sizedheading(it, 字号.小二)
+      } else {
+        sizedheading(it, 字号.三号)
+      }
     } else {
       if it.level == 2 {
-        sizedheading(it, 字号.四号)
+        sizedheading(it, 字号.小三)
       } else if it.level == 3 {
-        sizedheading(it, 字号.中四)
+        sizedheading(it, 字号.四号)
       } else {
         sizedheading(it, 字号.小四)
       }
@@ -666,25 +671,37 @@
       grid(
         columns: (auto, auto),
         gutter: 0.4em,
-        image("pkulogo.svg", height: 2.4em, fit: "contain"),
-        image("pkuword.svg", height: 1.6em, fit: "contain")
+        image("ustcword.png", height: 1.6em, fit: "contain"),
       )
     )
     linebreak()
-    strong(cthesisname)
+    [
+      #set text(font: 字体.黑体, size: 56pt, weight: "regular")
+      #cthesisname
+    ]
+    linebreak()
+    v(1em)
 
-    set text(字号.二号)
-    v(60pt)
+    box(
+      grid(
+        columns: (auto, auto),
+        gutter: 0.4em,
+        image("ustclogo.svg", height: 4em, fit: "contain"),
+      )
+    )
+
+    set text(字号.一号)
+    // v(60pt)
     grid(
-      columns: (80pt, 300pt),
+      columns: (0pt, 300pt),
       [
         #set align(right + top)
-        题目：
       ],
       [
         #set align(center + horizon)
-        #chineseunderline(ctitle, width: 300pt, bold: true)
-      ]
+        // #chineseunderline(ctitle, width: 300pt, bold: true)
+        #strong(ctitle)
+      ],
     )
 
     v(60pt)
@@ -693,73 +710,51 @@
     grid(
       columns: (80pt, 280pt),
       row-gutter: 1em,
-      fieldname(text("姓") + h(2em) + text("名：")),
+      fieldname("作者姓名："),
       fieldvalue(cauthor),
       fieldname(text("学") + h(2em) + text("号：")),
       fieldvalue(studentid),
-      fieldname(text("学") + h(2em) + text("院：")),
-      fieldvalue(school),
       fieldname(text("专") + h(2em) + text("业：")),
       fieldvalue(cmajor),
-      fieldname("研究方向："),
-      fieldvalue(direction),
-      fieldname(text("导") + h(2em) + text("师：")),
+      fieldname("导师姓名："),
       fieldvalue(csupervisor),
+      fieldname("完成时间："),
+      fieldvalue(date),
     )
 
-    v(60pt)
-    text(字号.小二)[#date]
   }
 
   smartpagebreak()
 
-  // Copyright
-  set align(left + top)
-  set text(字号.小四)
-  heading(numbering: none, outlined: false, "版权声明")
-  par(justify: true, first-line-indent: 2em, leading: linespacing)[
-    任何收存和保管本论文各种版本的单位和个人，未经本论文作者同意，不得将本论文转借他人，亦不得随意复制、抄录、拍照或以任何方式传播。否则，引起有碍作者著作权之问题，将可能承担法律责任。
-  ]
-
-  smartpagebreak()
-
   // Chinese abstract
-  par(justify: true, first-line-indent: 2em, leading: linespacing)[
+  par(justify: true, first-line-indent: 2em, leading: 22pt)[
+    #set text(font: 字体.宋体, size: 字号.小四)
     #heading(numbering: none, outlined: false, "摘要")
     #cabstract
-    #v(1fr)
+    #v(3em)
     #set par(first-line-indent: 0em)
+    #set align(left)
     *关键词：*
-    #ckeywords.join("，")
+    #ckeywords.join("；")
     #v(2em)
   ]
 
   smartpagebreak()
 
   // English abstract
-  par(justify: true, first-line-indent: 2em, leading: linespacing)[
-    #[
-      #set text(字号.小二)
-      #set align(center)
-      #strong(etitle)
-    ]
-    #if not blind {
-      [
-        #set align(center)
-        #eauthor \(#emajor\) \
-        Directed by #esupervisor
-      ]
-    }
+  par(justify: true, first-line-indent: 2em, leading: 22pt)[
+    #set text(size: 字号.小四)
     #heading(numbering: none, outlined: false, "Abstract")
     #eabstract
-    #v(1fr)
+    #v(3em)
     #set par(first-line-indent: 0em)
-    *KEYWORDS:*
+    #set align(left)
+    *Key Words:*
     #h(0.5em, weak: true)
-    #ekeywords.join(", ")
+    #ekeywords.join("; ")
     #v(2em)
   ]
-  
+
   // Table of contents
   chineseoutline(
     title: "目录",
@@ -780,6 +775,7 @@
   }
 
   set align(left + top)
+  set text(font: 字体.宋体, size: 字号.小四)
   par(justify: true, first-line-indent: 2em, leading: linespacing)[
     #doc
   ]
@@ -788,61 +784,6 @@
     par(justify: true, first-line-indent: 2em, leading: linespacing)[
       #heading(numbering: none, "致谢")
       #acknowledgements
-    ]
-
-    partcounter.update(30)
-    heading(numbering: none, "北京大学学位论文原创性声明和使用授权说明")
-    align(center)[#heading(level: 2, numbering: none, outlined: false, "原创性声明")]
-    par(justify: true, first-line-indent: 2em, leading: linespacing)[
-      本人郑重声明：
-      所呈交的学位论文，是本人在导师的指导下，独立进行研究工作所取得的成果。
-      除文中已经注明引用的内容外，
-      本论文不含任何其他个人或集体已经发表或撰写过的作品或成果。
-      对本文的研究做出重要贡献的个人和集体，均已在文中以明确方式标明。
-      本声明的法律结果由本人承担。
-
-      #v(1em)
-
-      #align(right)[
-        论文作者签名
-        #h(5em)
-        日期：
-        #h(2em)
-        年
-        #h(2em)
-        月
-        #h(2em)
-        日
-      ]
-
-      #align(center)[#heading(level: 2, numbering: none, outlined: false, "学位论文使用授权说明")]
-      #v(-0.33em, weak: true)
-      #align(center)[#text(字号.五号)[（必须装订在提交学校图书馆的印刷本）]]
-      #v(字号.小三)
-
-      本人完全了解北京大学关于收集、保存、使用学位论文的规定，即：
-
-      - 按照学校要求提交学位论文的印刷本和电子版本；
-      - 学校有权保存学位论文的印刷本和电子版，并提供目录检索与阅览服务，在校园网上提供服务；
-      - 学校可以采用影印、缩印、数字化或其它复制手段保存论文；
-      - 因某种特殊原因须要延迟发布学位论文电子版，授权学校 #box[#rect(width: 9pt, height: 9pt)] 一年 /	 #box[#rect(width: 9pt, height: 9pt)] 两年 / #box[#rect(width: 9pt, height: 9pt)] 三年以后，在校园网上全文发布。
-
-      #align(center)[（保密论文在解密后遵守此规定）]
-
-      #v(1em)
-      #align(right)[
-        论文作者签名
-        #h(5em)
-        导师签名
-        #h(5em)
-        日期：
-        #h(2em)
-        年
-        #h(2em)
-        月
-        #h(2em)
-        日
-      ]
     ]
   }
 }
