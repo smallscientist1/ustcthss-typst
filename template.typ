@@ -41,6 +41,7 @@
   counter(heading).update(0)
 }
 #let skippedstate = state("skipped", false)
+#let iscoverpage = state("iscover", true) // default true for first page header
 
 #let chinesenumber(num, standalone: false) = if num < 11 {
   ("零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十").at(num)
@@ -362,7 +363,7 @@
   listofimage: false,
   listoftable: false,
   listofcode: false,
-  alwaysstartodd: true,
+  alwaysstartodd: false,
   doc,
 ) = {
   let smartpagebreak = () => {
@@ -377,79 +378,31 @@
 
   set page("a4",
     header: locate(loc => {
-      if skippedstate.at(loc) and calc.even(loc.page()) { return }
+      if iscoverpage.at(loc) {
+        // skip cover
+        return
+      }
       [
-        #set text(字号.五号)
+        #set text(size: 字号.小五, font: 字体.宋体)
         #set align(center)
-        #if partcounter.at(loc).at(0) < 10 {
-          let headings = query(selector(heading).after(loc), loc)
-          let next_heading = if headings == () {
-            ()
-          } else {
-            headings.first().body.text
-          }
-
-          // [HARDCODED] Handle the first page of Chinese abstract specailly
-          if next_heading == "摘要" and calc.odd(loc.page()) {
-            [
-              #next_heading
-              #v(-1em)
-              #line(length: 100%)
-            ]
-          }
-        } else if partcounter.at(loc).at(0) <= 20 {
-          if calc.even(loc.page()) {
-            [
-              #align(center, cheader)
-              #v(-1em)
-              #line(length: 100%)
-            ]
-          } else {
-            let footers = query(selector(<__footer__>).after(loc), loc)
-            if footers != () {
-              let elems = query(
-                heading.where(level: 1).before(footers.first().location()), footers.first().location()
-              )
-
-              // [HARDCODED] Handle the last page of Chinese abstract specailly
-              let el = if elems.last().body.text == "摘要" or not skippedstate.at(footers.first().location()) {
-                elems.last()
-              } else {
-                elems.at(-2)
-              }
-              [
-                #let numbering = if el.numbering == chinesenumbering {
-                  chinesenumbering(..counter(heading).at(el.location()), location: el.location())
-                } else if el.numbering != none {
-                  numbering(el.numbering, ..counter(heading).at(el.location()))
-                }
-                #if numbering != none {
-                  numbering
-                  h(0.5em)
-                }
-                #el.body
-                #v(-1em)
-                #line(length: 100%)
-              ]
-            }
-          }
-      }]}),
+        #cheader
+        #v(-2em)
+        #line(length: 100%)
+      ]
+    }),
     footer: locate(loc => {
       if skippedstate.at(loc) and calc.even(loc.page()) { return }
       [
-        #set text(字号.五号)
+        #set text(font: 字体.宋体, size: 字号.小五)
         #set align(center)
-        #if query(selector(heading).before(loc), loc).len() < 2 or query(selector(heading).after(loc), loc).len() == 0 {
+        #if query(selector(heading).before(loc), loc).len() < 3 or query(selector(heading).after(loc), loc).len() == 0 {
           // Skip cover, copyright and origin pages
+          // skip cabstract & eabstract
         } else {
           let headers = query(selector(heading).before(loc), loc)
           let part = partcounter.at(headers.last().location()).first()
           [
-            #if part < 20 {
-              numbering("I", counter(page).at(loc).first())
-            } else {
-              str(counter(page).at(loc).first())
-            }
+            #str(counter(page).at(loc).first())
           ]
         }
         #label("__footer__")
@@ -512,6 +465,9 @@
           counter(page).update(1)
         } else if it.numbering != none and partcounter.at(loc).first() < 20 {
           partcounter.update(20)
+          // counter(page).update(1)
+        } else if it.body.text == "目录" {
+          // partcounter.update(20)
           counter(page).update(1)
         }
       })
@@ -532,6 +488,7 @@
       }
     } else {
       if it.level == 2 {
+        set align(center)
         sizedheading(it, 字号.小三)
       } else if it.level == 3 {
         sizedheading(it, 字号.四号)
@@ -624,7 +581,7 @@
 
   let fieldvalue(value) = [
     #set align(center + horizon)
-    #set text(font: 字体.仿宋)
+    #set text(font: 字体.黑体, size: 字号.三号)
     #grid(
       rows: (auto, auto),
       row-gutter: 0.2em,
@@ -724,6 +681,7 @@
 
   }
 
+  iscoverpage.update(false) // before pagebreak(header generated);
   smartpagebreak()
 
   // Chinese abstract

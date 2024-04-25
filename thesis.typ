@@ -27,7 +27,7 @@
   listofimage: false,
   listoftable: false,
   listofcode: false,
-  alwaysstartodd: true,
+  alwaysstartodd: false,
   doc,
 )
 

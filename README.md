@@ -2,7 +2,9 @@
 中国科学技术大学本科生毕业论文的typst模版, 
 按照 https://www.teach.ustc.edu.cn/notice/notice-teaching/17071.html 格式要求编写。
 
+![ustcthss-typst](./images/cover_ustc.png)
 本仓库基于PKUTHSS-Typst修改得到。
+
 
 
 
