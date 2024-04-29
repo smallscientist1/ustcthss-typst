@@ -1,4 +1,4 @@
-# ustcthss-typst
+# ustcthss-typst 中国科学技术大学本科生毕业论文typst模版
 中国科学技术大学本科生毕业论文的typst模版, 
 按照 https://www.teach.ustc.edu.cn/notice/notice-teaching/17071.html 格式要求编写。
 
