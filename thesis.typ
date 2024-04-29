@@ -572,10 +572,6 @@ $ vec(overline(underbracket(underline(1 + 2) + overbrace(3 + dots.c + 10, "large
 
 #lorem(1000)
 
-= 更新日志 <changelog>
-
-#include "changelog.typ"
-
 #pagebreak()
 #bibliography("ref.bib",
   style: "ieee"
