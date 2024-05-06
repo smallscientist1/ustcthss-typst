@@ -21,7 +21,7 @@
   eabstract: "This document introduces the features of the pkuthss-typst template.",
   ekeywords: ("Typst", "Template"),
   acknowledgements: [感谢 Typst 开发者的辛勤付出。 #lorem(300)],
-  linespacing: 22pt,
+  linespacing: 10pt,
   outlinedepth: 3,
   blind: false,
   listofimage: false,

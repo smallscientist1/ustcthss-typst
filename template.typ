@@ -357,7 +357,7 @@
   eabstract: [],
   ekeywords: (),
   acknowledgements: [],
-  linespacing: 22pt,
+  linespacing: 10pt,
   outlinedepth: 3,
   blind: false,
   listofimage: false,
@@ -386,7 +386,8 @@
         #set text(size: 字号.小五, font: 字体.宋体)
         #set align(center)
         #cheader
-        #v(-2em)
+        #v(-1em) // ??
+        // #v(-linespacing)
         #line(length: 100%)
       ]
     }),
