@@ -337,20 +337,12 @@
 
 #let conf(
   cauthor: "张三",
-  eauthor: "San Zhang",
-  studentid: "23000xxxxx",
-  blindid: "L2023XXXXX",
+  studentid: "PB2000xxxxx",
   cthesisname: "本科毕业论文",
   cheader: "中国科学技术大学本科毕业论文",
   ctitle: "中国科学技术大学学位论文 Typst 模板",
-  etitle: "Typst Template for Peking University Dissertations",
-  school: "某个学院",
-  cfirstmajor: "某个一级学科",
   cmajor: "某个专业",
-  emajor: "Some Major",
-  direction: "某个研究方向",
   csupervisor: "李四",
-  esupervisor: "Si Li",
   date: "2024年5月1日",
   cabstract: [],
   ckeywords: (),
@@ -359,7 +351,6 @@
   acknowledgements: [],
   linespacing: 10pt,
   outlinedepth: 3,
-  blind: false,
   listofimage: false,
   listoftable: false,
   listofcode: false,
@@ -593,38 +584,7 @@
 
   // Cover page
 
-  if blind {
-    set align(center + top)
-    text(字号.初号)[#strong(cheader)]
-    linebreak()
-    set text(字号.三号, font: 字体.仿宋)
-    set par(justify: true, leading: 1em)
-    [（匿名评阅论文封面）]
-    v(2fr)
-    grid(
-      columns: (80pt, 320pt),
-      row-gutter: 1.5em,
-      align(left + top)[中文题目：],
-      align(left + top)[#ctitle],
-      align(left + top)[英文题目：],
-      align(left + top)[#etitle],
-    )
-    v(2em)
-    grid(
-      columns: (80pt, 320pt),
-      row-gutter: 1.5em,
-      align(left + top)[一级学科：],
-      align(left + top)[#cfirstmajor],
-      align(left + top)[二级学科：],
-      align(left + top)[#cmajor],
-      align(left + top)[论文编号：],
-      align(left + top)[#blindid],
-    )
-
-    v(4fr)
-    text(字号.小二, font: 字体.仿宋)[#date]
-    v(1fr)
-  } else {
+  {
     box(
       grid(
         columns: (auto, auto),
@@ -739,7 +699,7 @@
     #doc
   ]
 
-  if not blind {
+  {
     par(justify: true, first-line-indent: 2em, leading: linespacing)[
       #heading(numbering: none, "致谢")
       #acknowledgements
