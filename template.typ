@@ -340,7 +340,7 @@
   studentid: "PB2000xxxxx",
   cthesisname: "本科毕业论文",
   cheader: "中国科学技术大学本科毕业论文",
-  ctitle: "中国科学技术大学学位论文 Typst 模板",
+  ctitle: "中国科学技术大学\n学位论文 Typst 模板",
   cmajor: "某个专业",
   csupervisor: "李四",
   date: "2024年5月1日",
@@ -611,7 +611,7 @@
     set text(字号.一号)
     // v(60pt)
     grid(
-      columns: (0pt, 300pt),
+      columns: (0pt, 350pt),
       [
         #set align(right + top)
       ],

@@ -4,7 +4,7 @@
   cauthor: "张三",
   cthesisname: "本科毕业论文",
   cheader: "中国科学技术大学本科毕业论文",
-  ctitle: "中国科学技术大学学位论文模板",
+  ctitle: "中国科学技术大学\n学位论文模板",
   cmajor: "某个专业",
   csupervisor: "李四 教授",
   date: "2024年5月1日",
