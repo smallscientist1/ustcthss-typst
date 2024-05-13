@@ -645,6 +645,7 @@
   iscoverpage.update(false) // before pagebreak(header generated);
   smartpagebreak()
 
+  set align(left + top)
   // Chinese abstract
   par(justify: true, first-line-indent: 2em, leading: 22pt)[
     #set text(font: 字体.宋体, size: 字号.小四)
@@ -652,7 +653,6 @@
     #cabstract
     #v(3em)
     #set par(first-line-indent: 0em)
-    #set align(left)
     *关键词：*
     #ckeywords.join("；")
     #v(2em)
@@ -667,7 +667,6 @@
     #eabstract
     #v(3em)
     #set par(first-line-indent: 0em)
-    #set align(left)
     *Key Words:*
     #h(0.5em, weak: true)
     #ekeywords.join("; ")
@@ -693,7 +692,6 @@
     listoffigures(title: "代码", kind: "code")
   }
 
-  set align(left + top)
   set text(font: 字体.宋体, size: 字号.小四)
   par(justify: true, first-line-indent: 2em, leading: linespacing)[
     #doc
