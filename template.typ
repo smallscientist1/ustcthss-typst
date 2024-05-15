@@ -422,6 +422,22 @@
       }
     })
   )
+  // set table style
+  set table(
+    stroke: (x, y) => if x >= 0 and y == 0 {
+      (top: (
+        paint: black,
+        thickness: 2pt,
+        dash: "solid"
+        ), 
+      left: 1pt + black, 
+      right: 1pt + black, 
+      bottom: 1pt + black
+      )
+    } else {
+      1pt + black
+    }
+  )
   set math.equation(
     numbering: (..nums) => locate(loc => {
       set text(font: 字体.宋体)
