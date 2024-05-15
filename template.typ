@@ -647,7 +647,7 @@
 
   set align(left + top)
   // Chinese abstract
-  par(justify: true, first-line-indent: 2em, leading: 22pt)[
+  par(justify: true, first-line-indent: 2em, leading: linespacing)[
     #set text(font: 字体.宋体, size: 字号.小四)
     #heading(numbering: none, outlined: false, "摘要")
     #cabstract
@@ -661,7 +661,7 @@
   smartpagebreak()
 
   // English abstract
-  par(justify: true, first-line-indent: 2em, leading: 22pt)[
+  par(justify: true, first-line-indent: 2em, leading: linespacing)[
     #set text(size: 字号.小四)
     #heading(numbering: none, outlined: false, "Abstract")
     #eabstract
