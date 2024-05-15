@@ -80,6 +80,23 @@
   if appendixcounter.at(actual_loc).first() < 10 {
     if nums.pos().len() == 1 {
       "第" + chinesenumber(nums.pos().first(), standalone: true) + "章"
+    } else {
+      numbering(if brackets { "(1.1)" } else { "1.1" }, ..nums)
+    }
+  } else {
+    if nums.pos().len() == 1 {
+      "附录 " + numbering("A.1", ..nums)
+    } else {
+      numbering(if brackets { "(A.1)" } else { "A.1" }, ..nums)
+    }
+  }
+})
+
+#let chineseheadernumbering(..nums, location: none, brackets: false) = locate(loc => {
+  let actual_loc = if location == none { loc } else { location }
+  if appendixcounter.at(actual_loc).first() < 10 {
+    if nums.pos().len() == 1 {
+      "第" + chinesenumber(nums.pos().first(), standalone: true) + "章"
     } else if nums.pos().len() == 2 {
       "第" + chinesenumber(nums.pos().last(), standalone: true) + "节"
     } else if nums.pos().len() == 3 {
@@ -412,7 +429,7 @@
 
   set text(字号.一号, font: 字体.宋体, lang: "zh")
   set align(center + horizon)
-  set heading(numbering: chinesenumbering)
+  set heading(numbering: chineseheadernumbering)
   set figure(
     numbering: (..nums) => locate(loc => {
       if appendixcounter.at(loc).first() < 10 {
