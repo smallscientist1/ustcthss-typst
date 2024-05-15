@@ -80,8 +80,16 @@
   if appendixcounter.at(actual_loc).first() < 10 {
     if nums.pos().len() == 1 {
       "第" + chinesenumber(nums.pos().first(), standalone: true) + "章"
+    } else if nums.pos().len() == 2 {
+      "第" + chinesenumber(nums.pos().last(), standalone: true) + "节"
+    } else if nums.pos().len() == 3 {
+      chinesenumber(nums.pos().last(), standalone: true) + "、" + h(-1em)
+    } else if nums.pos().len() == 4 {
+      numbering({ "1." }, nums.pos().last())
+    } else if nums.pos().len() == 5 {
+      numbering({ "(1)" }, nums.pos().last())
     } else {
-      numbering(if brackets { "(1.1)" } else { "1.1" }, ..nums)
+      // numbering(if brackets { "(1.1)" } else { "1.1" }, ..nums)
     }
   } else {
     if nums.pos().len() == 1 {
