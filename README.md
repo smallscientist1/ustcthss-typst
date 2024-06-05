@@ -25,4 +25,6 @@
 
 ## 致谢
 
-本仓库基于[PKUTHSS-Typst](https://github.com/pku-typst/pkuthss-typst)修改得到，感谢开发者的贡献。
+- 本仓库基于[PKUTHSS-Typst](https://github.com/pku-typst/pkuthss-typst)修改得到，感谢开发者的贡献。
+- 本仓库双语参考文献的实现参考了[SEU-Typst-Template](https://github.com/csimide/SEU-Typst-Template/tree/master?tab=readme-ov-file#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE)，感谢开发者的贡献。
+
