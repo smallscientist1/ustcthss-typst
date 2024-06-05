@@ -1,3 +1,5 @@
+#import "bilingual-bibliography.typ" : show-bibliography
+
 #let 字号 = (
   初号: 42pt,
   小初: 36pt,
@@ -606,6 +608,8 @@
       h(0em, weak: true)
     }
   }
+
+  show: show-bibliography.with(bilingual: true)
 
   let fieldname(name) = [
     #set align(right + top)
